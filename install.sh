@@ -12,6 +12,8 @@ SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 cp -r $SCRIPT_DIR/config/ $CONFIG_DIR
 
 ln -sf $CONFIG_DIR/zsh/zshrc $HOME/.zshrc
+ln -sf $CONFIG_DIR/git/gitconfig $HOME/.gitconfig
+ln -sf $CONFIG_DIR/git/gitignore $HOME/.gitignore
 
 export VIM_PACK_DIR=$CONFIG_DIR/vim/pack
 git clone --depth 1 https://github.com/Shougo/neocomplcache.vim.git $VIM_PACK_DIR/editor/start/neocomplcache.vim.git
