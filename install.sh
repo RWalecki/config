@@ -7,7 +7,6 @@ if [ -d "$CONFIG_DIR" ]; then
   mv "$CONFIG_DIR" "$CONFIG_DIR.old"
 fi
 
-# git clone --depth 1 git@github.com:RWalecki/config.git $CONFIG_DIR
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 cp -r $SCRIPT_DIR/config/ $CONFIG_DIR
 
@@ -29,3 +28,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     git clone --depth 1 https://github.com/Homebrew/brew.git $HOME/.homebrew
   fi
 fi
+
+# start zsh
+zsh
