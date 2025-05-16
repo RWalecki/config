@@ -1,30 +1,31 @@
 #!/usr/bin/env bash
+CONFIG_DIR=$HOME/.config  
 
-# Get the directory where the script file is located
-SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+# Remove .config.old if it exists and move .config to .config.old
+if [ -d "$CONFIG_DIR" ]; then
+  rm -rf "$CONFIG_DIR.old"
+  mv "$CONFIG_DIR" "$CONFIG_DIR.old"
+fi
 
-# Loop through all files and directories in the script directory
-for rcfile in $SCRIPT_DIR/*/*; do
-  # Get the filename of the current file
-  filename=$(basename "$rcfile")
-  
-  # Remove any existing configuration file with the same name in the user's home directory
-  rm -r $HOME/.$filename
-  
-  # Create a symbolic link to the file found in the user's home directory
-  ln -sf $rcfile $HOME/.$filename
-done
+# git clone --depth 1 git@github.com:RWalecki/config.git $CONFIG_DIR
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+cp -r $SCRIPT_DIR/config/ $CONFIG_DIR
 
-# Remove any existing zprezto configuration in the user's home directory
-rm -rf ~/.zprezto
+ln -sf $CONFIG_DIR/zsh/zshrc $HOME/.zshrc
+ln -sf $CONFIG_DIR/git/gitconfig $HOME/.gitconfig
+ln -sf $CONFIG_DIR/git/gitignore $HOME/.gitignore
 
-# Clone the zprezto repository from GitHub into the user's home directory
-git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+export VIM_PACK_DIR=$CONFIG_DIR/vim/pack
+git clone --depth 1 https://github.com/Shougo/neocomplcache.vim.git $VIM_PACK_DIR/editor/start/neocomplcache.vim.git
+git clone --depth 1 https://github.com/scrooloose/nerdcommenter.git $VIM_PACK_DIR/editor/start/nerdcommenter.git
+git clone --depth 1 https://github.com/scrooloose/nerdtree.git $VIM_PACK_DIR/editor/start/nerdtree.git
+git clone --depth 1 https://github.com/vim-airline/vim-airline.git $VIM_PACK_DIR/editor/start/vim-airline.git
+git clone --depth 1 https://github.com/jistr/vim-nerdtree-tabs.git $VIM_PACK_DIR/editor/start/vim-nerdtree-tabs.git
+git clone --depth 1 https://github.com/tomasr/molokai.git $VIM_PACK_DIR/themes/start/molokai.git
 
-# Update all submodules (vim packages) in the zprezto repository
-git submodule update --init --recursive
-
-wget -O Miniforge3.sh "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh" -O miniforge.sh
-bash miniforge.sh -b -p ${HOME}/.miniforge
-rm miniforge.sh
-exec zsh
+# install homebrew on macos
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  if [ ! -d "$HOME/.homebrew" ]; then
+    git clone --depth 1 https://github.com/Homebrew/brew.git $HOME/.homebrew
+  fi
+fi
