@@ -72,7 +72,7 @@ export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"
 export TMUX_CONF="$XDG_CONFIG_HOME/tmux/tmux.conf"
 
 # Source zshenv if it exists
-source "$ZDOTDIR/zshenv"
+source "\$ZDOTDIR/zshenv"
 EOF
 
 echo "Installation complete. Starting zsh..."
