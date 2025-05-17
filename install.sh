@@ -65,7 +65,7 @@ touch $HOME/.zshrc
 cat << EOF >> "$HOME/.zshrc"
 export XDG_CONFIG_HOME="/Users/Robert/.config"
 export XDG_CACHE_HOME="/Users/Robert/.cache"
-export HISTFILE="\$XDG_DATA_HOME/zsh/.history"
+export HISTFILE="\$XDG_CONFIG_HOME/zsh/.history"
 
 # Then set application-specific configs
 source "\$XDG_CONFIG_HOME/zsh/zshenv"

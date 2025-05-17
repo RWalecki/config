@@ -36,11 +36,13 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 PROMPT='%F{cyan}%m%f:%F{green}%~%f %F{yellow}❯%f '
 
 # History settings
-export HISTSIZE=10000          # Maximum events in internal history
-export SAVEHIST=10000          # Maximum events in history file
 setopt APPEND_HISTORY          # Append to history file
 setopt EXTENDED_HISTORY        # Save timestamp and duration
 setopt HIST_EXPIRE_DUPS_FIRST  # Remove duplicates first when trimming history
 setopt HIST_IGNORE_DUPS        # Don't record duplicate commands
 setopt HIST_IGNORE_SPACE       # Don't record commands starting with a space
 setopt HIST_VERIFY             # Verify command when using history expansion
+setopt INC_APPEND_HISTORY      # Add commands as they're typed, not at shell exit
+setopt SHARE_HISTORY           # Share history between different zsh sessions
+export HISTSIZE=10000          # Maximum events in internal history
+export SAVEHIST=10000          # Maximum events in history file
