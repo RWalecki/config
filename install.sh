@@ -76,4 +76,4 @@ source "$ZDOTDIR/zshenv"
 EOF
 
 echo "Installation complete. Starting zsh..."
-zsh
+source "$HOME/.zshrc"
