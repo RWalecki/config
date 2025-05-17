@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-export CONFIG_DIR=$HOME/.config 
-source $CONFIG_DIR/zsh/zshenv
-
-# Vim configuration
-export VIMINIT='source $CONFIG_DIR/vim/vimrc'
-
-# Tmux configuration
-export TMUX_CONFIG=$CONFIG_DIR/tmux/tmux.conf
