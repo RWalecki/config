@@ -1,6 +1,5 @@
 # Dotfiles Configuration
-
-Personal dotfiles and configurations for my development environment.
+If you're using Zsh, Git, Vim, and VS Code, you'll definitely find useful configurations in this repository. It includes customized setups for all these tools, complete with Vim plugins (neocomplcache, nerdcommenter, nerdtree, vim-airline, etc.), and dedicated configuration directories for each tool. Just run the provided installation script to get started. But make sure to backup your files before trying. Leave me a comment if you find these configurations useful or find something that could be improved!
 
 ## Includes
 - Zsh, Git, and Vim configurations with plugins (neocomplcache, nerdcommenter, nerdtree, vim-airline, vim-nerdtree-tabs, molokai theme)
