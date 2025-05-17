@@ -48,8 +48,6 @@ export HISTSIZE=10000          # Maximum events in internal history
 export SAVEHIST=10000          # Maximum events in history file
 
 # Colorized ls
-if [[ "$(uname)" == "Darwin" ]]; then
-    alias ls='ls -G'               # Enable colorized output for ls on macOS
-else
-    alias ls='ls --color=auto'     # Enable colorized output for ls on Linux/Ubuntu
-fi
+alias ls='ls --color=auto'
+alias ll='ls -l'
+alias la='ls -la'
