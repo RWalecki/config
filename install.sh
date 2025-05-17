@@ -46,8 +46,8 @@ touch $HOME/.zshrc
 cat << EOF >> "$HOME/.zshrc"
 export CONFIG_DIR=$CONFIG_DIR
 source $CONFIG_DIR/dotfiles/zshrc
-export VIMINIT='source $CONFIG_DIR/dotfiles/vimrc'
-export TMUX_CONFIG=$CONFIG_DIR/dotfiles/tmux.conf
+export VIMINIT='source $CONFIG_DIR/vimrc'
+export TMUX_CONFIG=$CONFIG_DIR/tmux.conf
 EOF
 
 # start zsh
