@@ -37,8 +37,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   fi
 fi
 
-ln -s $CONFIG_DIR/gitconfig $HOME/.gitconfig
-ln -s $CONFIG_DIR/gitignore $HOME/.gitignore
+
+ln -sf $CONFIG_DIR/gitconfig $HOME/.gitconfig
+ln -sf $CONFIG_DIR/gitignore $HOME/.gitignore
 
 touch $HOME/.zshrc
 cat << EOF >> "$HOME/.zshrc"
