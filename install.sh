@@ -1,28 +1,42 @@
 #!/usr/bin/env bash
-# ask for config dir and default to $HOME/.config 
+#
+# Dotfiles Installation Script
+# This script installs and configures the dotfiles setup.
+# It handles backing up existing configurations, setting up symlinks,
+# and installing required vim plugins.
+
+# WARNING: This script will move your existing configurations (.zshrc, .config directory, 
+# Git configs, etc.) to backup files with .old extension. Please make sure you have saved any
+# important customizations before proceeding.
+
+# Ask for config directory location
 read -p "Enter location of config dir [$HOME/.config] (Y to confirm, or enter custom path): " CONFIG_RESPONSE
 if [[ "$CONFIG_RESPONSE" == "Y" || "$CONFIG_RESPONSE" == "y" || "$CONFIG_RESPONSE" == "" ]]; then
-  CONFIG_DIR="$HOME/.config"
+  XDG_CONFIG_HOME="$HOME/.config"
 else
-  CONFIG_DIR="$CONFIG_RESPONSE"
+  XDG_CONFIG_HOME="$CONFIG_RESPONSE"
 fi
 
-# Remove .config.old if it exists and move .config to .config.old
-if [ -d "$CONFIG_DIR" ] || [ -L "$CONFIG_DIR" ]; then
-  rm -rf "$CONFIG_DIR.old"
-  mv "$CONFIG_DIR" "$CONFIG_DIR.old"
+# Backup existing configuration
+if [ -d "$XDG_CONFIG_HOME" ] || [ -L "$XDG_CONFIG_HOME" ]; then
+  rm -rf "$XDG_CONFIG_HOME.old"
+  mv "$XDG_CONFIG_HOME" "$XDG_CONFIG_HOME.old"
+  echo "Backed up existing config directory to $XDG_CONFIG_HOME.old"
 fi
 
+# Backup existing zsh configuration
 if [ -f "$HOME/.zshrc" ] || [ -L "$HOME/.zshrc" ]; then
   mv "$HOME/.zshrc" "$HOME/.zshrc.old"
+  echo "Backed up existing .zshrc to $HOME/.zshrc.old"
 fi
 
-# this has to be replaced with git clone
+# Clone dotfiles repository
+echo "Cloning dotfiles repository..."
 git clone --depth 1 git@github.com:RWalecki/config.git $CONFIG_DIR
-# SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
-# cp -r $SCRIPT_DIR/dotfiles $CONFIG_DIR
 
-export VIM_PACK_DIR=$CONFIG_DIR/vim/pack
+# Install Vim plugins
+echo "Installing Vim plugins..."
+VIM_PACK_DIR=$CONFIG_DIR/vim/pack
 mkdir -p $VIM_PACK_DIR/{editor,themes}/start
 git clone --depth 1 https://github.com/Shougo/neocomplcache.vim.git $VIM_PACK_DIR/editor/start/neocomplcache.vim.git
 git clone --depth 1 https://github.com/scrooloose/nerdcommenter.git $VIM_PACK_DIR/editor/start/nerdcommenter.git
@@ -31,24 +45,37 @@ git clone --depth 1 https://github.com/vim-airline/vim-airline.git $VIM_PACK_DIR
 git clone --depth 1 https://github.com/jistr/vim-nerdtree-tabs.git $VIM_PACK_DIR/editor/start/vim-nerdtree-tabs.git
 git clone --depth 1 https://github.com/tomasr/molokai.git $VIM_PACK_DIR/themes/start/molokai.git
 
-# install homebrew on macos
+# Install Homebrew on macOS if needed
 if [[ "$OSTYPE" == "darwin"* ]]; then
+  echo "macOS detected, checking for Homebrew..."
   if [ ! -d "$HOME/.homebrew" ]; then
+    echo "Installing Homebrew..."
     git clone --depth 1 https://github.com/Homebrew/brew.git $HOME/.homebrew
   fi
 fi
 
-
+# Create git configuration symlinks
+echo "Setting up Git configuration..."
 ln -sf $CONFIG_DIR/gitconfig $HOME/.gitconfig
 ln -sf $CONFIG_DIR/gitignore $HOME/.gitignore
 
+# Create new zshrc with proper configuration
+echo "Configuring zsh..."
 touch $HOME/.zshrc
 cat << EOF >> "$HOME/.zshrc"
-export CONFIG_DIR=$CONFIG_DIR
-source $CONFIG_DIR/zshenv
-export VIMINIT='source $CONFIG_DIR/vim/vimrc'
-export TMUX_CONFIG=$CONFIG_DIR/tmux.conf
+export XDG_CONFIG_HOME="$XDG_CONFIG_HOME"
+export XDG_CACHE_HOME="$HOME/.cache"
+
+# Then set application-specific configs
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"
+export TMUX_CONF="$XDG_CONFIG_HOME/tmux/tmux.conf"
+
+# Source zshenv if it exists
+if [[ -f "$ZDOTDIR/zshenv" ]]; then
+  source "$ZDOTDIR/zshenv"
+fi
 EOF
 
-# start zsh
+echo "Installation complete. Starting zsh..."
 zsh
