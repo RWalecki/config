@@ -46,3 +46,10 @@ setopt INC_APPEND_HISTORY      # Add commands as they're typed, not at shell exi
 setopt SHARE_HISTORY           # Share history between different zsh sessions
 export HISTSIZE=10000          # Maximum events in internal history
 export SAVEHIST=10000          # Maximum events in history file
+
+# Colorized ls
+if [[ "$(uname)" == "Darwin" ]]; then
+    alias ls='ls -G'               # Enable colorized output for ls on macOS
+else
+    alias ls='ls --color=auto'     # Enable colorized output for ls on Linux/Ubuntu
+fi
