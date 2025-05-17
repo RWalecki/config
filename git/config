@@ -5,7 +5,7 @@
 [core]
     editor = vim
     whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
-    excludesfile = ~/.gitignore
+	excludesfile = /Users/Robert/.config/git/ignore
 
 [alias]
     s = status -s
