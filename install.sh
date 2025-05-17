@@ -72,3 +72,5 @@ export TMUX_CONF="$XDG_CONFIG_HOME/tmux/tmux.conf"
 # Source zshenv if it exists
 source "\$ZDOTDIR/zshenv"
 EOF
+
+source "$HOME/.zshrc"
