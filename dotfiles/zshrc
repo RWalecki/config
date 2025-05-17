@@ -42,24 +42,16 @@ zstyle ':completion:*' menu select
 # Color completions
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-# Function to get the current git branch and status
+# Function to get the current git branch
 git_branch() {
   local branch=$(git branch --no-color 2>/dev/null | grep '^*' | colrm 1 2)
   if [ -n "$branch" ]; then
-    # Check if the repo has changes
-    local git_status=$(git status --porcelain 2>/dev/null)
-    if [ -n "$git_status" ]; then
-      # Dirty repository
-      echo " %F{magenta}[$branch]%f%F{red}*%f"
-    else
-      # Clean repository
-      echo " %F{magenta}[$branch]%f"
-    fi
+    echo " %F{magenta}[$branch]%f"
   fi
 }
 
 # Enable prompt command substitution
 setopt PROMPT_SUBST
 
-# Prompt with hostname, current directory, and git branch
-PROMPT='%F{cyan}%m%f:%F{green}%~%f$(git_branch) %F{yellow}❯%f '
+# Prompt with hostname, current directory, git branch and exit status indicator
+PROMPT='%F{cyan}%m%f:%F{green}%~%f$(git_branch) %(?:%F{yellow}❯:%F{red}❯)%f '
