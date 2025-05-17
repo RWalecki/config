@@ -63,14 +63,11 @@ ln -sf $XDG_CONFIG_HOME/gitignore $HOME/.gitignore
 echo "Configuring zsh..."
 touch $HOME/.zshrc
 cat << EOF >> "$HOME/.zshrc"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="/Users/Robert/.config"
+export XDG_CACHE_HOME="/Users/Robert/.cache"
+
 # Then set application-specific configs
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"
-export TMUX_CONF="$XDG_CONFIG_HOME/tmux/tmux.conf"
-# Source zshenv if it exists
-source "\$ZDOTDIR/zshenv"
+source "$XDG_CONFIG_HOME/zsh/zshenv"
 EOF
 
 echo "Installation complete! To start using your new configuration immediately, run 'zsh'."
