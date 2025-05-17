@@ -10,12 +10,8 @@
 # important customizations before proceeding.
 
 # Ask for config directory location
-read -p "Enter location of config dir [$HOME/.config] (Y to confirm, or enter custom path): " CONFIG_RESPONSE
-if [[ "$CONFIG_RESPONSE" == "Y" || "$CONFIG_RESPONSE" == "y" || "$CONFIG_RESPONSE" == "" ]]; then
-  XDG_CONFIG_HOME="$HOME/.config"
-else
-  XDG_CONFIG_HOME="$CONFIG_RESPONSE"
-fi
+# Set config directory location to ~/.config
+XDG_CONFIG_HOME="$HOME/.config"
 
 # Backup existing configuration
 if [ -d "$XDG_CONFIG_HOME" ] || [ -L "$XDG_CONFIG_HOME" ]; then
@@ -57,8 +53,8 @@ fi
 echo "Configuring zsh..."
 touch $HOME/.zshrc
 cat << EOF >> "$HOME/.zshrc"
-export XDG_CONFIG_HOME="/Users/Robert/.config"
-export XDG_CACHE_HOME="/Users/Robert/.cache"
+export XDG_CONFIG_HOME="\$HOME/.config"
+export XDG_CACHE_HOME="\$HOME/.cache"
 export HISTFILE="\$XDG_CONFIG_HOME/zsh/.history"
 
 # Then set application-specific configs
