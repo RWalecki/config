@@ -45,8 +45,8 @@ ln -sf $CONFIG_DIR/gitignore $HOME/.gitignore
 touch $HOME/.zshrc
 cat << EOF >> "$HOME/.zshrc"
 export CONFIG_DIR=$CONFIG_DIR
-source $CONFIG_DIR/zshrc
-export VIMINIT='source $CONFIG_DIR/vimrc'
+source $CONFIG_DIR/zshenv
+export VIMINIT='source $CONFIG_DIR/vim/vimrc'
 export TMUX_CONFIG=$CONFIG_DIR/tmux.conf
 EOF
 
