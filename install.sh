@@ -73,4 +73,4 @@ export TMUX_CONF="$XDG_CONFIG_HOME/tmux/tmux.conf"
 source "\$ZDOTDIR/zshenv"
 EOF
 
-source "$HOME/.zshrc"
+echo "Installation complete! To start using your new configuration immediately, run 'zsh'."
