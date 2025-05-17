@@ -32,11 +32,11 @@ fi
 
 # Clone dotfiles repository
 echo "Cloning dotfiles repository..."
-git clone --depth 1 git@github.com:RWalecki/config.git $CONFIG_DIR
+git clone --depth 1 git@github.com:RWalecki/config.git $XDG_CONFIG_HOME
 
 # Install Vim plugins
 echo "Installing Vim plugins..."
-VIM_PACK_DIR=$CONFIG_DIR/vim/pack
+VIM_PACK_DIR=$XDG_CONFIG_HOME/vim/pack
 mkdir -p $VIM_PACK_DIR/{editor,themes}/start
 git clone --depth 1 https://github.com/Shougo/neocomplcache.vim.git $VIM_PACK_DIR/editor/start/neocomplcache.vim.git
 git clone --depth 1 https://github.com/scrooloose/nerdcommenter.git $VIM_PACK_DIR/editor/start/nerdcommenter.git
@@ -56,8 +56,8 @@ fi
 
 # Create git configuration symlinks
 echo "Setting up Git configuration..."
-ln -sf $CONFIG_DIR/gitconfig $HOME/.gitconfig
-ln -sf $CONFIG_DIR/gitignore $HOME/.gitignore
+ln -sf $XDG_CONFIG_HOME/gitconfig $HOME/.gitconfig
+ln -sf $XDG_CONFIG_HOME/gitignore $HOME/.gitignore
 
 # Create new zshrc with proper configuration
 echo "Configuring zsh..."
