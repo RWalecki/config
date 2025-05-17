@@ -32,7 +32,7 @@ fi
 
 # Clone dotfiles repository
 echo "Cloning dotfiles repository..."
-git clone --depth 1 git@github.com:RWalecki/config.git $XDG_CONFIG_HOME
+git clone --depth 1 https://github.com/RWalecki/config.git $XDG_CONFIG_HOME
 
 # Install Vim plugins
 echo "Installing Vim plugins..."
