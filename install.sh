@@ -54,12 +54,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   fi
 fi
 
-# Create git configuration symlinks
-# echo "Setting up Git configuration..."
-# ln -sf $XDG_CONFIG_HOME/gitconfig $HOME/.gitconfig
-# ln -sf $XDG_CONFIG_HOME/gitignore $HOME/.gitignore
-
-# Create new zshrc with proper configuration
 echo "Configuring zsh..."
 touch $HOME/.zshrc
 cat << EOF >> "$HOME/.zshrc"
