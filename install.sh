@@ -18,8 +18,9 @@ if [ -f "$HOME/.zshrc" ] || [ -L "$HOME/.zshrc" ]; then
 fi
 
 # this has to be replaced with git clone
-SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
-cp -r $SCRIPT_DIR/dotfiles $CONFIG_DIR
+git clone --depth 1 git@github.com:RWalecki/config.git $CONFIG_DIR
+# SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+# cp -r $SCRIPT_DIR/dotfiles $CONFIG_DIR
 
 export VIM_PACK_DIR=$CONFIG_DIR/vim/pack
 mkdir -p $VIM_PACK_DIR/{editor,themes}/start
